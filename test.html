@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Visibilidad</title>
+    <style>
+        #couponDiv {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            background-color: yellow;
+            border: 1px solid black;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenido a la página</h1>
+    <p>Navega por la página, pero no cambies de pestaña...</p>
+
+    <div id="couponDiv">No te vayas, usa este cupón!</div>
+
+    <script>
+        document.addEventListener("visibilitychange", function() {
+            const couponDiv = document.getElementById("couponDiv");
+            const titleElement = document.getElementsByTagName("title")[0];
+            if (document.visibilityState === "hidden") {
+                couponDiv.style.display = "block";
+                titleElement.innerText = "¡No te vayas!";
+            }
+        });
+    </script>
+</body>
+</html>

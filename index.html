@@ -27,14 +27,35 @@
     <div id="couponDiv">No te vayas, usa este cupón!</div>
 
     <script>
+        const couponDiv = document.getElementById("couponDiv");
+        const titleElement = document.getElementsByTagName("title")[0];
         document.addEventListener("visibilitychange", function() {
-            const couponDiv = document.getElementById("couponDiv");
-            const titleElement = document.getElementsByTagName("title")[0];
             if (document.visibilityState === "hidden") {
                 couponDiv.style.display = "block";
                 titleElement.innerText = "¡No te vayas!";
             }
         });
+
+        // Detección de inactividad por más de 2 segundos
+        let timeout;
+
+        function handleInactivity() {
+            console.log("Usuario inactivo por más de 2 segundos");
+            couponDiv.style.display = "block";
+            titleElement.innerText = "¡No te vayas!";
+        }
+
+        function resetTimer() {
+            clearTimeout(timeout);
+            timeout = setTimeout(handleInactivity, 2000); // 2000 milisegundos = 2 segundos
+        }
+
+        // Eventos que detectan actividad del usuario
+        window.onload = resetTimer;
+        document.onmousemove = resetTimer;
+        document.onkeydown = resetTimer;
+        document.ontouchstart = resetTimer; // Para dispositivos táctiles
+
     </script>
 </body>
 </html>
